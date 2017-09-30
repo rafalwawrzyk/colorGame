@@ -1,18 +1,70 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-
-    const colors = generateColors(6);
+    let numSquares = 6;
+    let colors = generateColors(numSquares);
     //variables
-    const pickedColor = pickColor(colors);
+    let pickedColor = pickColor(colors);
     const squares = document.querySelectorAll('.square');
     const titleColor = document.querySelector('h1 span');
+    const header = document.querySelector('h1');
+    let reset = document.querySelector('.btn-new-color');
     let message = document.querySelector('.winSpan');
-
-
+    let easy = document.querySelector('.btn-easy');
+    let hard = document.querySelector('.btn-hard');
+    
+    
+    easy.addEventListener('click',function(){
+        this.classList.add('selected');
+        hard.classList.remove('selected');
+        numSquares = 3;
+        colors = generateColors(numSquares);
+        pickedColor = pickColor(colors);
+        titleColor.textContent = pickedColor;
+        
+        for(let i=0; i<squares.length; i++){
+            if(colors[i]){
+                squares[i].style.backgroundColor = colors[i]
+            }else{
+                squares[i].style.display = 'none'
+            }
+        }
+        
+    }) 
+    hard.addEventListener('click',function(){
+        this.classList.add('selected');
+        easy.classList.remove('selected');
+        numSquares = 6;
+        colors = generateColors(numSquares);
+        pickedColor = pickColor(colors);
+        titleColor.textContent = pickedColor;
+        
+        for(let i=0; i<squares.length; i++){
+                squares[i].style.backgroundColor = colors[i]        
+                squares[i].style.display = 'block';
+            
+        }
+    })
 
     titleColor.textContent = pickedColor;
+    
+    reset.addEventListener('click', function(e) {
+        //generate all new colors
+        colors = generateColors(numSquares)
+        // pick new random color
+        pickedColor = pickColor(colors);
+        //change span to color text
+        titleColor.textContent = pickedColor;
+        // change colors of squares
+        for(let i =0; i<squares.length;i++ ){
+            squares[i].style.backgroundColor = colors[i];
+            message.textContent = 'Pick correct';
+            header.style.backgroundColor = '#3881c1'
+        }
+        reset.textContent = "New colors"
+        
+    });
 
-
+   
 
     for (var i = 0; i < squares.length; i++) {
         // add init color
@@ -24,6 +76,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (clickedColor === pickedColor) {
                 message.textContent = 'Correct'
                 correctColors(pickedColor);
+                header.style.backgroundColor = pickedColor;
+                reset.textContent = "Play again?"
+                
             } else {
                 // add color of background to square
                 this.style.backgroundColor = "rgb(35, 35, 35)"
