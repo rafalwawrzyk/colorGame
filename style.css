@@ -64,7 +64,7 @@ h1{
 
 
 
-.btn-new-color,.btn-easy,.btn-hard {
+.btn-new-color,.btnLevel {
     float: left;
     color:#3881c1;
     background-color: white;
@@ -107,15 +107,17 @@ button:hover{
     display: table;
 }
 
-.btn-easy {
+.btnLevel {
     float: right;
     margin-left: 5px;
 }
 
+/*
 .btn-hard {
     float: right;
     margin-right: 5px;
 }
+*/
 
 .selected{
     background-color: #3881c1;
