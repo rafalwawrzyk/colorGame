@@ -1,22 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
 
 
-    const colors = [
-        "rgb(255, 0, 0)",
-        "rgb(255, 255, 0)",
-        "rgb(0, 255, 0)",
-        "rgb(0, 255, 255)",
-        "rgb(0, 0, 255)",
-        "rgb(255, 0, 255)",
-    ]
+    const colors = generateColors(6);
     //variables
     const pickedColor = pickColor(colors);
     const squares = document.querySelectorAll('.square');
     const titleColor = document.querySelector('h1 span');
-    let message = document.querySelector('.winSpan');   
+    let message = document.querySelector('.winSpan');
 
-    
-    
+
+
     titleColor.textContent = pickedColor;
 
 
@@ -28,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         squares[i].addEventListener('click', function () {
             //grab clicked color and compare to win color
             const clickedColor = this.style.backgroundColor
-            if ( clickedColor === pickedColor) {
+            if (clickedColor === pickedColor) {
                 message.textContent = 'Correct'
                 correctColors(pickedColor);
             } else {
@@ -38,26 +31,38 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     }
-    
-    
-    function correctColors(color){
+
+
+    function correctColors(color) {
         //loop through all sqaures
-        squares.forEach(function(square){
+        squares.forEach(function (square) {
             // change all colors
             square.style.backgroundColor = color;
         })
     }
-    
-    function pickColor(colors){
+
+    function pickColor(colors) {
+        // random color from array
         let randColor = colors[Math.floor(Math.random() * colors.length)]
         return randColor
+    }
+
+    function generateColors(items) {
+        // empty arr
+        let colorArr = [];
+        // loop for how many items and add colors
+        for (i = 0; i < items; i++) {
+            colorArr[i] = randomColor()
         }
+        return colorArr;
+    }
 
-
-
-
-
-
+    function randomColor(){
+        let r = Math.floor(Math.random()*256)
+        let g = Math.floor(Math.random()*256)
+        let b = Math.floor(Math.random()*256)
+        return `rgb(${r}, ${g}, ${b})`
+    }
 
 
 })
